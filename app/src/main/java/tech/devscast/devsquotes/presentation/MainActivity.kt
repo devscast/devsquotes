@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes
+package tech.devscast.devsquotes.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import tech.devscast.devsquotes.ui.theme.DevsquotesTheme
+import tech.devscast.devsquotes.presentation.theme.DevsquotesTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

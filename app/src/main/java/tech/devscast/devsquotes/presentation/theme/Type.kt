@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.ui.theme
+package tech.devscast.devsquotes.presentation.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

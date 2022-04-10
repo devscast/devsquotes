@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.ui.theme
+package tech.devscast.devsquotes.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
