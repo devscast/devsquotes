@@ -6,7 +6,7 @@ import tech.devscast.devsquotes.data.model.QuotesFile
 
 class GithubQuotesDataSource(private val quotesApi: GithubQuotesApi) : RemoteQuotesDataSource {
     override suspend fun getQuotesFiles(
-        onSuccess: (List<QuotesFile>) -> Unit,
+        onSuccess: suspend (List<QuotesFile>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
         try {
