@@ -1,11 +1,10 @@
 package tech.devscast.devsquotes.data.api
 
-import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
-import tech.devscast.devsquotes.data.model.GithubQuotesResponse
+import tech.devscast.devsquotes.data.model.QuotesFile
 
 interface GithubQuotesApi {
 
     @GET("?ref=master")
-    suspend fun getQuotesFiles(): Flow<GithubQuotesResponse>
+    suspend fun getQuotesFiles(): List<QuotesFile>
 }
