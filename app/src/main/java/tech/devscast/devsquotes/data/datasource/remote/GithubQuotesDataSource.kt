@@ -1,18 +1,16 @@
 package tech.devscast.devsquotes.data.datasource.remote
 
-import kotlinx.coroutines.flow.collect
 import tech.devscast.devsquotes.data.api.GithubQuotesApi
 import tech.devscast.devsquotes.data.model.QuotesFile
+import javax.inject.Inject
 
-class GithubQuotesDataSource(private val quotesApi: GithubQuotesApi) : RemoteQuotesDataSource {
+class GithubQuotesDataSource @Inject constructor (private val quotesApi: GithubQuotesApi) : RemoteQuotesDataSource {
     override suspend fun getQuotesFiles(
         onSuccess: suspend (List<QuotesFile>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
         try {
-            quotesApi.getQuotesFiles().collect {
-                onSuccess(it.quotesFiles)
-            }
+            onSuccess(quotesApi.getQuotesFiles())
         } catch (t: Throwable) {
             onFailure(t)
         }
