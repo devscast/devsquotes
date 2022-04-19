@@ -35,7 +35,7 @@ object RetrofitModule {
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://api.github.com/repos/devscast/quotes-database/contents/data/2022")
+            .baseUrl("https://api.github.com/repos/devscast/quotes-database/contents/data/2022/")
             .client(client)
             .build()
     }
