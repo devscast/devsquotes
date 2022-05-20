@@ -5,6 +5,7 @@ import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import tech.devscast.devsquotes.data.model.Quote
 import tech.devscast.devsquotes.data.model.QuotesFile
+import timber.log.Timber
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
@@ -34,9 +35,8 @@ object CsvParser {
                     val quote = Quote(en = en, fr = fr, author = author, role = role)
                     quotes.add(quote)
                 }
-
             } catch (e: Exception) {
-
+                Timber.e(e)
             }
         }
         return quotes
