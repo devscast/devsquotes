@@ -23,7 +23,7 @@ class QuotesRepository @Inject constructor(private val remoteQuotesDataSource: R
                 for (quotesFile in quotesFiles) {
                     quotes.add(CsvParser.parse(quotesFile))
                 }
-                Timber.d("${quotes.flatten()}")
+                Timber.e("Citations ${quotes.flatten()}")
                 localDataSource.cacheQuotes(quotes.flatten())
             },
             onFailure = {

@@ -12,7 +12,7 @@ class RoomQuotesDataSource @Inject constructor(private val quotesDao: QuotesDao)
     override suspend fun cacheQuotes(quotes: List<Quote>) {
         Timber.e(quotes.toString())
         quotesDao.addAllQuote(quotes.toListRoomQuote())
-        Timber.e("not convert")
+        Timber.e(quotes.toListRoomQuote().toString())
     }
 
     override fun getQuotes(): Flow<List<RoomQuote>> {

@@ -10,7 +10,7 @@ data class Quote(
 ) {
     fun toRoomQuote(): RoomQuote {
         return RoomQuote(
-            id = en.trim().take(10),
+            id = en.filterNot { it.isWhitespace() }.filterNot { it == '"' }.take(20),
             en = en,
             fr = fr,
             author = author,
