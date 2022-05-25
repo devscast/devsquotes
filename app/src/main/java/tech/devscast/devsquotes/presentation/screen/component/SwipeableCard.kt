@@ -2,6 +2,7 @@ package tech.devscast.devsquotes.presentation.screen.component
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.consumePositionChange
 import androidx.compose.ui.input.pointer.pointerInput
@@ -23,6 +25,9 @@ import androidx.compose.ui.zIndex
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import tech.devscast.devsquotes.data.model.Quote
+import tech.devscast.devsquotes.presentation.theme.Item1
+import tech.devscast.devsquotes.presentation.theme.Item2
+import tech.devscast.devsquotes.presentation.theme.Item3
 import tech.devscast.devsquotes.util.Constants.TOP_CARD_INDEX
 import tech.devscast.devsquotes.util.Constants.TOP_Z_INDEX
 import tech.devscast.devsquotes.util.Constants.cardHeight
@@ -82,6 +87,11 @@ fun SwipeableCard(
             CardItem(
                 modifier = cardModifier,
                 post = posts[if (index == 0) firstCard.value else firstCard.value + 1],
+                color = when (index) {
+                    1 -> Item1
+                    2 -> Item2
+                    else -> Item3
+                }
                 //selectedItem = selectedItem
             )
         }
