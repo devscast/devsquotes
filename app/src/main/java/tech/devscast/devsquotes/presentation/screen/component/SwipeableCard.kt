@@ -2,7 +2,6 @@ package tech.devscast.devsquotes.presentation.screen.component
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.*
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -20,7 +19,6 @@ import androidx.compose.ui.input.pointer.consumePositionChange
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -32,6 +30,9 @@ import tech.devscast.devsquotes.util.Constants.TOP_CARD_INDEX
 import tech.devscast.devsquotes.util.Constants.TOP_Z_INDEX
 import tech.devscast.devsquotes.util.Constants.cardHeight
 import tech.devscast.devsquotes.util.Constants.cardWith
+import tech.devscast.devsquotes.util.Constants.color1
+import tech.devscast.devsquotes.util.Constants.color2
+import tech.devscast.devsquotes.util.Constants.color3
 import tech.devscast.devsquotes.util.Constants.paddingOffset
 import kotlin.math.abs
 import kotlin.math.min
@@ -41,6 +42,7 @@ import kotlin.math.roundToInt
 fun SwipeableCard(
     posts: List<Quote>, //selectedItem: (Quote) -> (Unit),
 ) {
+
     val visibleCard: Int = StrictMath.min(3, posts.size)
     val scope = rememberCoroutineScope()
     val firstCard = remember { mutableStateOf(0) }
@@ -55,15 +57,15 @@ fun SwipeableCard(
         easing = LinearEasing
     )
     fun rearrangeForward() {
-        if (firstCard.value == posts.size - 1) {
-            firstCard.value = 0
-        } else firstCard.value++
+        if (firstCard.value != posts.size - 2) {
+            firstCard.value++
+        } else firstCard.value = 0
     }
 
-    fun rearrangeBackward() {
-        if (firstCard.value == -(posts.size - 1)) {
-            firstCard.value = posts.size - 1
-        } else firstCard.value--
+    fun rearrangeBackward(){
+        if(firstCard.value != 0) {
+            firstCard.value--
+        }else firstCard.value = posts.size - 2
     }
 
     Box(Modifier.fillMaxWidth()) {
@@ -88,11 +90,12 @@ fun SwipeableCard(
                 modifier = cardModifier,
                 post = posts[if (index == 0) firstCard.value else firstCard.value + 1],
                 color = when (index) {
-                    1 -> Item1
-                    2 -> Item2
-                    else -> Item3
+                    1 -> color1.random()
+                    2 -> color2.random()
+                    else -> {
+                        color3.random()
+                    }
                 }
-                //selectedItem = selectedItem
             )
         }
     }

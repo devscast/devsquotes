@@ -48,7 +48,7 @@ fun CardItem(
                     style = MaterialTheme.typography.body1,
                     color = White,
                     overflow = TextOverflow.Ellipsis,
-                    fontSize = 24.sp,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.Medium,
                     fontStyle = FontStyle.Italic
                 )
@@ -56,7 +56,7 @@ fun CardItem(
                 Text(
                     text = post.author,
                     color = White,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.align(Alignment.End)
                 )
