@@ -1,7 +1,11 @@
 package tech.devscast.devsquotes.util
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector2D
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.height
@@ -17,7 +21,6 @@ import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.zIndex
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.min
@@ -26,21 +29,17 @@ import kotlin.math.roundToInt
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 fun Modifier.swipeCardModifier(
     cardIndex: Int,
+    scope: CoroutineScope,
+    offset: Animatable<Offset, AnimationVector2D>,
     rearrangeForward: () -> Unit,
     rearrangeBackward: () -> Unit
 ): Modifier {
 
     val zIndex = Constants.TOP_Z_INDEX - cardIndex
-
-
-    val offset: Animatable<Offset, AnimationVector2D> = Animatable(
-        Offset(0f, 0f), Offset.VectorConverter
-    )
-
     val scale = calculateScale(cardIndex)
     val offsetY = calculateOffset(cardIndex)
 
-    if (cardIndex > Constants.TOP_CARD_INDEX) {
+    return if (cardIndex > Constants.TOP_CARD_INDEX) {
         this
             .graphicsLayer {
                 translationY =
@@ -70,7 +69,7 @@ fun Modifier.swipeCardModifier(
             .pointerInput(Unit) {
                 detectTapGestures(
                     onTap = {
-                        CoroutineScope(Dispatchers.Main).launch {
+                        scope.launch {
                             rearrangeBackward()
                             offset.animateTo(
                                 targetValue = Offset(-600f, 600f),
@@ -88,27 +87,24 @@ fun Modifier.swipeCardModifier(
                 )
             }
             .pointerInput(Unit) {
-                detectDragGestures { change, dragAmount ->
+                detectDragGestures { change, _ ->
                     val dragOffset = Offset(
                         offset.value.x + change.positionChange().x,
                         offset.value.y + change.positionChange().y
                     )
-                    CoroutineScope(Dispatchers.Main).launch {
+                    scope.launch {
                         offset.snapTo(dragOffset)
                         change.consumePositionChange()
                         val x = when {
-
                             offset.value.x > 250 -> size.width.toFloat()
                             offset.value.x < -250 -> -size.width.toFloat()
                             else -> 0f
                         }
                         val y = when {
-
                             offset.value.y > 250 -> size.height.toFloat()
                             offset.value.y < -250 -> -size.height.toFloat()
                             else -> 0f
                         }
-
                         offset.animateTo(
                             targetValue = Offset(x, y),
                             animationSpec = tween(
@@ -127,8 +123,6 @@ fun Modifier.swipeCardModifier(
                 }
             }
     }
-
-    return this
 }
 
 private fun calculateScale(index: Int): Float {
