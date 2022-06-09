@@ -1,9 +1,17 @@
 package tech.devscast.devsquotes.presentation.screen.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.magnifier
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
@@ -21,12 +29,12 @@ import tech.devscast.devsquotes.app.navigation.Screen
 import tech.devscast.devsquotes.presentation.theme.FavoriteBotBlack
 
 @Composable
-fun TopPageBar(modifier: Modifier = Modifier,navController: NavController) {
+fun TopPageBar(modifier: Modifier = Modifier, navController: NavController) {
     TopAppBar(
         modifier = modifier.height(70.dp),
         backgroundColor = MaterialTheme.colors.surface,
         elevation = 0.dp
-    ){
+    ) {
         Row(
             modifier = Modifier
                 .padding(start = 16.dp, end = 5.dp)

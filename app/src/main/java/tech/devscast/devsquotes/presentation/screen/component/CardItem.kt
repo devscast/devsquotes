@@ -1,7 +1,12 @@
 package tech.devscast.devsquotes.presentation.screen.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -25,7 +30,7 @@ fun CardItem(
     modifier: Modifier = Modifier,
     post: Quote,
     color: Color
-    //selectedItem: (Quote) -> (Unit)
+    // selectedItem: (Quote) -> (Unit)
 ) {
     Card(
         modifier = modifier,
@@ -36,7 +41,7 @@ fun CardItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(color)
-                /*.clickable { selectedItem(post) }*/,
+            /*.clickable { selectedItem(post) }*/,
             verticalArrangement = Arrangement.Center
         ) {
             Column(

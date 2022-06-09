@@ -10,15 +10,13 @@ import tech.devscast.devsquotes.presentation.screen.HomeScreen
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun MainNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Home.route){
-        composable(route = Screen.Home.route){
+    NavHost(navController = navController, startDestination = Screen.Home.route) {
+        composable(route = Screen.Home.route) {
             HomeScreen(navController)
         }
-        composable(route = Screen.Setting.route){
-
+        composable(route = Screen.Setting.route) {
         }
-        composable(route = Screen.Favorite.route){
-
+        composable(route = Screen.Favorite.route) {
         }
     }
 }
