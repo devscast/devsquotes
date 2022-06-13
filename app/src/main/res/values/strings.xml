@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Devsquotes</string>
+    <string name="home_sub_title">Swipe items to see more</string>
 </resources>
