@@ -75,7 +75,7 @@ fun SettingButton(navController: NavController) {
         imageVector = Icons.Default.Settings,
         contentDescription = "settings",
         modifier = Modifier
-            .clickable {  navController.navigate(Screen.Setting.route) }
+            .clickable { navController.navigate(Screen.Setting.route) }
             .size(30.dp)
     )
 }
