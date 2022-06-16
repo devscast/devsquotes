@@ -42,7 +42,7 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hilt
     }
     Scaffold(
         topBar = {
-            TopPageBar(navController = navController)
+            TopPageBar(onSettingClick = { navController.navigate(Screen.Setting.route) })
         },
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {

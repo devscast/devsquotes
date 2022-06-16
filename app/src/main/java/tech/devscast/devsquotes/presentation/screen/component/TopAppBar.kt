@@ -1,13 +1,8 @@
 package tech.devscast.devsquotes.presentation.screen.component
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -29,7 +24,7 @@ import tech.devscast.devsquotes.app.navigation.Screen
 import tech.devscast.devsquotes.presentation.theme.FavoriteBotBlack
 
 @Composable
-fun TopPageBar(modifier: Modifier = Modifier, navController: NavController) {
+fun TopPageBar(modifier: Modifier = Modifier, onSettingClick: () -> Unit) {
     TopAppBar(
         modifier = modifier.height(70.dp),
         backgroundColor = MaterialTheme.colors.surface,
@@ -43,7 +38,7 @@ fun TopPageBar(modifier: Modifier = Modifier, navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             TopTitle()
-            SettingButton(navController)
+            SettingButton(onClick = onSettingClick)
         }
     }
 }
@@ -69,13 +64,18 @@ fun TopTitle() {
         )
     }
 }
+
 @Composable
-fun SettingButton(navController: NavController) {
+fun SettingButton(onClick: () -> Unit) {
     Icon(
         imageVector = Icons.Default.Settings,
         contentDescription = "settings",
         modifier = Modifier
-            .clickable { navController.navigate(Screen.Setting.route) }
+            .clickable(
+                onClick = onClick,
+                interactionSource = MutableInteractionSource(),
+                indication = null
+            )
             .size(30.dp)
     )
 }
