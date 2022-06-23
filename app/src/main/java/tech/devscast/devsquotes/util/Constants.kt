@@ -11,3 +11,11 @@ object Constants {
     const val TOP_Z_INDEX = 100f
     const val TOP_CARD_INDEX = 0
 }
+
+object NotificationConstant {
+    const val name = "devsquotes-notifications"
+    const val DAILY_QUOTES_CHANNEL_ID = "daily_quotes"
+    const val description = "Daily programming description"
+
+    const val ID = 1
+}
