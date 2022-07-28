@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.presentation.screen.component
+package tech.devscast.devsquotes.presentation.screen.home.component
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector2D

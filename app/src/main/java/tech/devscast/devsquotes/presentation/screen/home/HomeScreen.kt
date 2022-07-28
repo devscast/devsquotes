@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.presentation.screen
+package tech.devscast.devsquotes.presentation.screen.home
 
 import android.app.Activity
 import androidx.activity.compose.BackHandler
@@ -23,10 +23,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import tech.devscast.devsquotes.app.navigation.Screen
-import tech.devscast.devsquotes.presentation.screen.busness.HomeState
-import tech.devscast.devsquotes.presentation.screen.busness.HomeViewModel
-import tech.devscast.devsquotes.presentation.screen.component.SwipeableCard
-import tech.devscast.devsquotes.presentation.screen.component.TopPageBar
+import tech.devscast.devsquotes.presentation.screen.home.busness.HomeState
+import tech.devscast.devsquotes.presentation.screen.home.busness.HomeViewModel
+import tech.devscast.devsquotes.presentation.screen.home.component.SwipeableCard
+import tech.devscast.devsquotes.presentation.screen.home.component.TopPageBar
 import tech.devscast.devsquotes.presentation.theme.FavoriteBotBlack
 import tech.devscast.devsquotes.presentation.theme.White
 

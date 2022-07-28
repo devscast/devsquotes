@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.presentation.screen.component
+package tech.devscast.devsquotes.presentation.screen.home.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

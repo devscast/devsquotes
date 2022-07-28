@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.presentation.screen.component
+package tech.devscast.devsquotes.presentation.screen.home.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -18,9 +18,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import tech.devscast.devsquotes.R
-import tech.devscast.devsquotes.app.navigation.Screen
 import tech.devscast.devsquotes.presentation.theme.FavoriteBotBlack
 
 @Composable
