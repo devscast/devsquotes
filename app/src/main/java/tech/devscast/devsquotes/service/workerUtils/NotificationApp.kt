@@ -10,7 +10,7 @@ class NotificationApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = NotificationConstant.name
             val descriptionText = NotificationConstant.description
 

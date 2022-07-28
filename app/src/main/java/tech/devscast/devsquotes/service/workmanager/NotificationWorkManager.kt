@@ -39,7 +39,7 @@ class NotificationWorkManager(appContext: Context, workerParams: WorkerParameter
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         with(NotificationManagerCompat.from(applicationContext)) {
-            notify(NotificationConstant.ID,builder.build())
+            notify(NotificationConstant.ID, builder.build())
         }
     }
 }
