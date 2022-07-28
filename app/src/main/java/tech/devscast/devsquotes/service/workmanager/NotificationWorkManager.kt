@@ -17,6 +17,7 @@ class NotificationWorkManager(appContext: Context, workerParams: WorkerParameter
         showNotification()
         return Result.success()
     }
+
     private fun showNotification() {
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
