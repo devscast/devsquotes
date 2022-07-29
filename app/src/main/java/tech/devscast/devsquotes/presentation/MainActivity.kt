@@ -47,7 +47,6 @@ class MainActivity : ComponentActivity() {
     private fun setUpWorkManager(context: Context) {
         val notificationWorkManager =
             PeriodicWorkRequestBuilder<NotificationWorkManager>(24, TimeUnit.HOURS)
-                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
                 .build()
 
         WorkManager.getInstance(context)
