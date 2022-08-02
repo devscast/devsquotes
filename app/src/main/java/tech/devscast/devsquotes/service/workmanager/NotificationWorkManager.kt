@@ -3,7 +3,6 @@ package tech.devscast.devsquotes.service.workmanager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.hilt.work.HiltWorker
@@ -12,13 +11,11 @@ import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import tech.devscast.devsquotes.R
-import tech.devscast.devsquotes.data.dao.QuotesDao
 import tech.devscast.devsquotes.data.model.Quote
 import tech.devscast.devsquotes.data.repository.QuotesRepository
 import tech.devscast.devsquotes.presentation.MainActivity
 import tech.devscast.devsquotes.util.NotificationConstant
 import tech.devscast.devsquotes.util.removeDoubleQuotes
-import javax.inject.Inject
 
 @HiltWorker
 class NotificationWorkManager @AssistedInject constructor(
@@ -26,7 +23,6 @@ class NotificationWorkManager @AssistedInject constructor(
     @Assisted workerParams: WorkerParameters,
     private val repository: QuotesRepository
 ) : CoroutineWorker(appContext, workerParams) {
-
 
     override suspend fun doWork(): Result {
         val quote = repository.getNonShownQuotes()
@@ -60,6 +56,4 @@ class NotificationWorkManager @AssistedInject constructor(
             notify(NotificationConstant.ID, builder.build())
         }
     }
-
-
 }

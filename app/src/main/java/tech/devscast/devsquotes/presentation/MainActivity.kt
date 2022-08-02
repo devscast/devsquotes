@@ -12,11 +12,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
-import tech.devscast.devsquotes.R
 import tech.devscast.devsquotes.app.navigation.MainNavGraph
 import tech.devscast.devsquotes.presentation.theme.DevsquotesTheme
 import tech.devscast.devsquotes.service.workmanager.NotificationWorkManager
