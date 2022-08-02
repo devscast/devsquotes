@@ -7,4 +7,5 @@ import tech.devscast.devsquotes.data.model.RoomQuote
 interface LocalDataSource {
     suspend fun cacheQuotes(quotes: List<Quote>)
     fun getQuotes(): Flow<List<RoomQuote>>
+    fun getNonShownQuotes(): RoomQuote
 }

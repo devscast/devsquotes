@@ -16,6 +16,10 @@ class QuotesRepository @Inject constructor(private val remoteQuotesDataSource: R
         return localDataSource.getQuotes().map { it.toListQuote() }
     }
 
+    fun getNonShownQuotes(): Quote {
+        return localDataSource.getNonShownQuotes().toQuote()
+    }
+
     suspend fun refresh() {
         remoteQuotesDataSource.getQuotesFiles(
             onSuccess = { quotesFiles ->
@@ -23,7 +27,6 @@ class QuotesRepository @Inject constructor(private val remoteQuotesDataSource: R
                 for (quotesFile in quotesFiles) {
                     quotes.add(CsvParser.parse(quotesFile))
                 }
-                Timber.e("Citations ${quotes.flatten()}")
                 localDataSource.cacheQuotes(quotes.flatten())
             },
             onFailure = {
