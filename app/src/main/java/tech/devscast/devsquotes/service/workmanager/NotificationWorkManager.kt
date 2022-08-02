@@ -3,46 +3,61 @@ package tech.devscast.devsquotes.service.workmanager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import tech.devscast.devsquotes.R
+import tech.devscast.devsquotes.data.dao.QuotesDao
+import tech.devscast.devsquotes.data.model.Quote
+import tech.devscast.devsquotes.data.repository.QuotesRepository
 import tech.devscast.devsquotes.presentation.MainActivity
 import tech.devscast.devsquotes.util.NotificationConstant
+import tech.devscast.devsquotes.util.removeDoubleQuotes
+import javax.inject.Inject
 
-class NotificationWorkManager(appContext: Context, workerParams: WorkerParameters) :
-    CoroutineWorker(appContext, workerParams) {
+@HiltWorker
+class NotificationWorkManager @AssistedInject constructor(
+    @Assisted appContext: Context,
+    @Assisted workerParams: WorkerParameters,
+    private val repository: QuotesRepository
+) : CoroutineWorker(appContext, workerParams) {
 
 
     override suspend fun doWork(): Result {
-        showNotification()
+        val quote = repository.getNonShownQuotes()
+        showNotification(quote)
         return Result.success()
     }
 
-    private fun showNotification() {
+    private fun showNotification(quote: Quote) {
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent: PendingIntent =
+            PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
         val builder = NotificationCompat.Builder(
             applicationContext,
             NotificationConstant.DAILY_QUOTES_CHANNEL_ID
         )
             .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("My notification")
-            .setContentText("Much longer text that cannot fit one line...")
+            .setContentTitle(quote.author.removeDoubleQuotes())
+            .setContentText(quote.fr.removeDoubleQuotes())
             .setStyle(
                 NotificationCompat.BigTextStyle()
-                    .bigText("Much longer text that cannot fit one line...")
+                    .bigText(quote.fr.removeDoubleQuotes())
             )
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         with(NotificationManagerCompat.from(applicationContext)) {
-            notify(NotificationConstant.ID,builder.build())
+            notify(NotificationConstant.ID, builder.build())
         }
     }
 

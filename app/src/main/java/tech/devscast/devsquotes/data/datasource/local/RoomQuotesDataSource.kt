@@ -18,4 +18,8 @@ class RoomQuotesDataSource @Inject constructor(private val quotesDao: QuotesDao)
     override fun getQuotes(): Flow<List<RoomQuote>> {
         return quotesDao.getAll()
     }
+
+    override fun getNonShownQuotes(): RoomQuote {
+        return quotesDao.getNonShown()
+    }
 }
