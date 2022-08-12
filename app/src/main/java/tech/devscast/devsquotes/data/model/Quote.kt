@@ -6,7 +6,8 @@ data class Quote(
     val en: String = "",
     val fr: String = "",
     val author: String = "",
-    val role: String = ""
+    val role: String = "",
+    val is_favorite: Boolean = false
 ) {
     fun toRoomQuote(): RoomQuote {
         return RoomQuote(
@@ -15,7 +16,8 @@ data class Quote(
             fr = fr,
             author = author,
             role = role,
-            created_at = Date(System.currentTimeMillis())
+            created_at = Date(System.currentTimeMillis()),
+            is_favorite = is_favorite
         )
     }
 }

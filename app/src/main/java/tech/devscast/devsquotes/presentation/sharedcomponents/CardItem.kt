@@ -1,16 +1,21 @@
-package tech.devscast.devsquotes.presentation.screen.component
+package tech.devscast.devsquotes.presentation.screen.home.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,28 +33,27 @@ import tech.devscast.devsquotes.util.Constants.normalElevation
 @Composable
 fun CardItem(
     modifier: Modifier = Modifier,
-    post: Quote,
-    color: Color
-    // selectedItem: (Quote) -> (Unit)
+    quote: Quote,
+    color: Color,
+    onAddToFavorite: (Quote) -> Unit
 ) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(cornerRadiusBig),
         elevation = normalElevation
     ) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color)
-            /*.clickable { selectedItem(post) }*/,
-            verticalArrangement = Arrangement.Center
+                .background(color),
         ) {
             Column(
                 modifier = Modifier
                     .padding(16.dp)
+                    .align(Alignment.Center)
             ) {
                 Text(
-                    text = post.fr,
+                    text = quote.fr,
                     style = MaterialTheme.typography.body1,
                     color = White,
                     overflow = TextOverflow.Ellipsis,
@@ -59,13 +63,26 @@ fun CardItem(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = post.author,
+                    text = quote.author,
                     color = White,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.align(Alignment.End)
                 )
             }
+
+            Icon(
+                imageVector = Icons.Outlined.Favorite,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(80.dp)
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
+                    .clickable(onClick = { onAddToFavorite(quote) })
+            )
         }
+
     }
+
+
 }

@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.presentation.screen.busness
+package tech.devscast.devsquotes.presentation.screen.home.busness
 
 import tech.devscast.devsquotes.data.model.Quote
 

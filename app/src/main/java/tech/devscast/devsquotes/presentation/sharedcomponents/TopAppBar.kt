@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.presentation.screen.component
+package tech.devscast.devsquotes.presentation.screen.home.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -28,7 +28,7 @@ import tech.devscast.devsquotes.R
 import tech.devscast.devsquotes.presentation.theme.FavoriteBotBlack
 
 @Composable
-fun TopPageBar(modifier: Modifier = Modifier, onSettingClick: () -> Unit) {
+fun TopPageBar(title: String, subtitle: String, modifier: Modifier = Modifier, actionMenu: @Composable () -> Unit = {}) {
     TopAppBar(
         modifier = modifier.height(70.dp),
         backgroundColor = MaterialTheme.colors.surface,
@@ -41,17 +41,17 @@ fun TopPageBar(modifier: Modifier = Modifier, onSettingClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            TopTitle()
-            SettingButton(onClick = onSettingClick)
+            TopTitle(title,subtitle)
+            actionMenu()
         }
     }
 }
 
 @Composable
-fun TopTitle() {
+private fun TopTitle(title: String, subtitle: String) {
     Column {
         Text(
-            text = stringResource(id = R.string.app_name),
+            text = title,
             style = TextStyle(
                 color = FavoriteBotBlack,
                 fontWeight = FontWeight.Medium,
@@ -59,7 +59,7 @@ fun TopTitle() {
             )
         )
         Text(
-            text = stringResource(id = R.string.home_sub_title),
+            text = subtitle,
             style = TextStyle(
                 fontWeight = FontWeight.Normal,
                 fontStyle = FontStyle.Italic,
@@ -67,19 +67,4 @@ fun TopTitle() {
             )
         )
     }
-}
-
-@Composable
-fun SettingButton(onClick: () -> Unit) {
-    Icon(
-        imageVector = Icons.Default.Settings,
-        contentDescription = "settings",
-        modifier = Modifier
-            .clickable(
-                onClick = onClick,
-                interactionSource = MutableInteractionSource(),
-                indication = null
-            )
-            .size(30.dp)
-    )
 }

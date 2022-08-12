@@ -22,4 +22,18 @@ class RoomQuotesDataSource @Inject constructor(private val quotesDao: QuotesDao)
     override fun getNonShownQuotes(): RoomQuote {
         return quotesDao.getNonShown()
     }
+
+    override suspend fun addQuoteToFavorites(quote: Quote) {
+        val mQuote = quote.copy(is_favorite = true).toRoomQuote()
+        quotesDao.updateQuote(quote = mQuote)
+    }
+
+    override suspend fun removeFromFavorite(quote: Quote) {
+        val mQuote = quote.copy(is_favorite = false).toRoomQuote()
+        quotesDao.updateQuote(quote = mQuote)
+    }
+
+    override fun getFavoritesQuotes(): Flow<List<RoomQuote>> {
+        return quotesDao.getAllFavorites()
+    }
 }

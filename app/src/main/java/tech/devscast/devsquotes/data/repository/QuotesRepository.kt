@@ -34,4 +34,16 @@ class QuotesRepository @Inject constructor(private val remoteQuotesDataSource: R
             }
         )
     }
+
+    suspend fun addToFavorite(quote: Quote) {
+        localDataSource.addQuoteToFavorites(quote)
+    }
+
+    suspend fun removeFromFavorites(quote: Quote) {
+        localDataSource.removeFromFavorite(quote)
+    }
+
+    fun getFavorites() : Flow<List<Quote>> {
+        return localDataSource.getFavoritesQuotes().map { it.toListQuote() }
+    }
 }

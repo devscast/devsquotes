@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.presentation.screen.component
+package tech.devscast.devsquotes.presentation.screen.home.component
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector2D
@@ -17,7 +17,8 @@ import tech.devscast.devsquotes.util.swipeCardModifier
 
 @Composable
 fun SwipeableCard(
-    posts: List<Quote>, // selectedItem: (Quote) -> (Unit),
+    posts: List<Quote>,
+    onAddQuoteToFavorite: (Quote) -> Unit
 ) {
     val visibleCard: Int = StrictMath.min(3, posts.size)
     val firstCard = remember { mutableStateOf(0) }
@@ -56,8 +57,9 @@ fun SwipeableCard(
                     rearrangeForward = ::rearrangeForward,
                     rearrangeBackward = ::rearrangeBackward
                 ),
-                post = posts[if (index == 0) firstCard.value else firstCard.value + 1],
-                color = Item4
+                quote = posts[if (index == 0) firstCard.value else firstCard.value + 1],
+                color = Item4,
+                onAddToFavorite = onAddQuoteToFavorite
             )
         }
     }

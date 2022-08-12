@@ -26,6 +26,7 @@ object DataBaseModule {
     }
 
     @Provides
+    @Singleton
     fun provideQuotesDao(appDataBase: AppDataBase): QuotesDao {
         return appDataBase.quotesDao()
     }

@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import tech.devscast.devsquotes.presentation.screen.HomeScreen
+import tech.devscast.devsquotes.presentation.screen.favorites.FavoriteScreen
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
@@ -17,6 +18,7 @@ fun MainNavGraph(navController: NavHostController) {
         composable(route = Screen.Setting.route) {
         }
         composable(route = Screen.Favorite.route) {
+            FavoriteScreen(navController)
         }
     }
 }

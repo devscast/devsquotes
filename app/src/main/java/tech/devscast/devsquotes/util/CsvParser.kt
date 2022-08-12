@@ -32,7 +32,12 @@ object CsvParser {
                 val role = record.get("role")
 
                 if (en != "\"en\"" && fr != "\"fr\"" && author != "\"author\"" && role != "\"role\"") {
-                    val quote = Quote(en = en, fr = fr, author = author, role = role)
+                    val quote = Quote(
+                        en = en,
+                        fr = fr,
+                        author = author,
+                        role = role,
+                    )
                     quotes.add(quote)
                 }
             } catch (e: Exception) {

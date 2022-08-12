@@ -12,14 +12,16 @@ data class RoomQuote(
     val fr: String,
     val author: String,
     val role: String,
-    val created_at: Date
+    val created_at: Date,
+    val is_favorite: Boolean
 ) {
     fun toQuote(): Quote {
         return Quote(
             en = en,
             fr = fr,
             author = author,
-            role = role
+            role = role,
+            is_favorite = is_favorite
         )
     }
 }

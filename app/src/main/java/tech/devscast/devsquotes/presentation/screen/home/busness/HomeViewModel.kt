@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.presentation.screen.busness
+package tech.devscast.devsquotes.presentation.screen.home.busness
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import tech.devscast.devsquotes.data.model.Quote
+import tech.devscast.devsquotes.data.model.RoomQuote
 import tech.devscast.devsquotes.data.repository.QuotesRepository
 import javax.inject.Inject
 
@@ -34,6 +36,18 @@ class HomeViewModel @Inject constructor(private val quotesRepository: QuotesRepo
             } catch (t: Throwable) {
                 _data.emit(HomeState.Error(t.message.toString()))
             }
+        }
+    }
+
+    fun addToFavorite(quote: Quote) {
+        viewModelScope.launch(Dispatchers.IO) {
+            quotesRepository.addToFavorite(quote)
+        }
+    }
+
+    fun removeFromFavorites(quote: Quote) {
+        viewModelScope.launch(Dispatchers.IO) {
+            quotesRepository.removeFromFavorites(quote)
         }
     }
 }
