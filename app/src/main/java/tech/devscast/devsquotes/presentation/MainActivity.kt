@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
         }.apply()
 
         createNotificationChannel()
-        if (!sharedPreferences.getBoolean("is_session_start", false)){
+        if (!sharedPreferences.getBoolean("is_session_start", false)) {
             startWork()
         }
 
@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun startWork(){
+    private fun startWork() {
         WorkManager.getInstance(applicationContext)
             .enqueueUniquePeriodicWork(
                 NotificationConstant.name,
@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
         .addTag(NotificationConstant.TAG_OUTPUT)
         .build()
 
-    private fun dailyWorker(): Long{
+    private fun dailyWorker(): Long {
         val dueDate = Calendar.getInstance()
 
         dueDate.set(Calendar.HOUR_OF_DAY, 6)

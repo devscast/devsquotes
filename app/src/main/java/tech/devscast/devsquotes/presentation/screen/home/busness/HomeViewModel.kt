@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tech.devscast.devsquotes.data.model.Quote
-import tech.devscast.devsquotes.data.model.RoomQuote
 import tech.devscast.devsquotes.data.repository.QuotesRepository
 import javax.inject.Inject
 
