@@ -18,4 +18,6 @@ object NotificationConstant {
     const val description = "Daily programming description"
 
     const val ID = 1
+
+    const val TAG_OUTPUT = "quote_tag"
 }

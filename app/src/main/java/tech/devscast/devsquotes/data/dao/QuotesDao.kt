@@ -22,7 +22,7 @@ interface QuotesDao {
     fun getQuotesById(id: String): RoomQuote
 
     @Query("SELECT * FROM quotes WHERE is_favorite = 1")
-    fun getAllFavorites() : Flow<List<RoomQuote>>
+    fun getAllFavorites(): Flow<List<RoomQuote>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addAllQuote(quote: List<RoomQuote>)

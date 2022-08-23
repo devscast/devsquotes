@@ -10,5 +10,5 @@ interface LocalDataSource {
     fun getNonShownQuotes(): RoomQuote
     suspend fun addQuoteToFavorites(quote: Quote)
     suspend fun removeFromFavorite(quote: Quote)
-    fun getFavoritesQuotes() : Flow<List<RoomQuote>>
+    fun getFavoritesQuotes(): Flow<List<RoomQuote>>
 }

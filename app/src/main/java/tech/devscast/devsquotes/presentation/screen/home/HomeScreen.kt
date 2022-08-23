@@ -58,7 +58,7 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hilt
                         modifier = Modifier
                             .clickable(
                                 enabled = true,
-                                onClick = { navController.navigate(Screen.Setting.route)  },
+                                onClick = { navController.navigate(Screen.Setting.route) },
                                 interactionSource = MutableInteractionSource(),
                                 indication = null
                             )
