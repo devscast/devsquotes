@@ -73,6 +73,7 @@ fun CardItem(
 
             Icon(
                 imageVector = Icons.Outlined.Favorite,
+                tint = if (quote.is_favorite) Color.Red else Color.White,
                 contentDescription = null,
                 modifier = Modifier
                     .size(80.dp)
