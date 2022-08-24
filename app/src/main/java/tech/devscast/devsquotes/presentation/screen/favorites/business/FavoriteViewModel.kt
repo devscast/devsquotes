@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import tech.devscast.devsquotes.data.model.Quote
 import tech.devscast.devsquotes.data.repository.QuotesRepository
-import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteState.*
+import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteState.Empty
+import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteState.Loading
+import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteState.Success
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,5 +38,4 @@ class FavoriteViewModel @Inject constructor(
             quotesRepository.removeFromFavorites(quote)
         }
     }
-
 }

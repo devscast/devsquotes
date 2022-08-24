@@ -82,8 +82,5 @@ fun CardItem(
                     .clickable(onClick = { onAddToFavorite(quote) })
             )
         }
-
     }
-
-
 }
