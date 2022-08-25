@@ -25,10 +25,12 @@ class HomeViewModel @Inject constructor(private val quotesRepository: QuotesRepo
         get() = _data
 
     init {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                quotesRepository.refresh()
-            }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            quotesRepository.refresh()
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
             _data.emit(HomeState.Loading)
             try {
                 quotesRepository.getQuotes().collect { _data.emit(HomeState.Success(it)) }
