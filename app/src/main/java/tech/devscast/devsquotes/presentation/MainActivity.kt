@@ -21,7 +21,7 @@ import tech.devscast.devsquotes.app.navigation.MainNavGraph
 import tech.devscast.devsquotes.presentation.theme.DevsquotesTheme
 import tech.devscast.devsquotes.service.workmanager.NotificationWorkManager
 import tech.devscast.devsquotes.util.NotificationConstant
-import java.util.Calendar
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -34,14 +34,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val editor = sharedPreferences.edit()
-        editor.apply {
-            putBoolean("is_session_start", true)
-        }.apply()
+
 
         createNotificationChannel()
-        if (!sharedPreferences.getBoolean("is_session_start", false)) {
+        if (sharedPreferences.getBoolean("is-first-open", true)) {
+
             startWork()
+
+            val editor = sharedPreferences.edit()
+
+            editor.apply {
+                putBoolean("is-first-open", false)
+            }.apply()
+
         }
 
         setContent {
@@ -66,10 +71,11 @@ class MainActivity : ComponentActivity() {
             )
     }
 
-    private fun setUpWorkManager() = PeriodicWorkRequestBuilder<NotificationWorkManager>(1, TimeUnit.DAYS)
-        .setInitialDelay(dailyWorker(), TimeUnit.MICROSECONDS)
-        .addTag(NotificationConstant.TAG_OUTPUT)
-        .build()
+    private fun setUpWorkManager() =
+        PeriodicWorkRequestBuilder<NotificationWorkManager>(15, TimeUnit.MINUTES)
+//            .setInitialDelay(dailyWorker(), TimeUnit.MICROSECONDS)
+            .addTag(NotificationConstant.TAG_OUTPUT)
+            .build()
 
     private fun dailyWorker(): Long {
         val dueDate = Calendar.getInstance()
@@ -88,7 +94,11 @@ class MainActivity : ComponentActivity() {
 
             val importance = NotificationManager.IMPORTANCE_HIGH
 
-            val channel = NotificationChannel(NotificationConstant.DAILY_QUOTES_CHANNEL_ID, name, importance).apply {
+            val channel = NotificationChannel(
+                NotificationConstant.DAILY_QUOTES_CHANNEL_ID,
+                name,
+                importance
+            ).apply {
                 description = descriptionText
             }
 
