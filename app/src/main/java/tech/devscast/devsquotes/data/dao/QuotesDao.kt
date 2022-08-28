@@ -15,7 +15,7 @@ interface QuotesDao {
     fun getAll(): Flow<List<RoomQuote>>
 
     // fixme : get nonshown quotes and find a better way to randomize
-    @Query("SELECT * FROM quotes ORDER BY created_at LIMIT 1")
+    @Query("SELECT * FROM quotes WHERE is_quote_shown = 0 ORDER BY created_at LIMIT 1")
     fun getNonShown(): RoomQuote
 
     @Query("SELECT * FROM quotes WHERE id = :id LIMIT 1")

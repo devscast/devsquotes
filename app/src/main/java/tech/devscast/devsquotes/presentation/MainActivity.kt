@@ -34,8 +34,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
         createNotificationChannel()
         if (sharedPreferences.getBoolean("is-first-open", true)) {
 
@@ -80,8 +78,8 @@ class MainActivity : ComponentActivity() {
     private fun dailyWorker(): Long {
         val dueDate = Calendar.getInstance()
 
-        dueDate.set(Calendar.HOUR_OF_DAY, 6)
-        dueDate.set(Calendar.MINUTE, 20)
+        dueDate.set(Calendar.HOUR_OF_DAY, 22)
+        dueDate.set(Calendar.MINUTE, 0)
         dueDate.set(Calendar.SECOND, 0)
 
         return dueDate.timeInMillis - System.currentTimeMillis()
