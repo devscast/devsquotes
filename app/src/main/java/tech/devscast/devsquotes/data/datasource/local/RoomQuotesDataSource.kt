@@ -28,6 +28,11 @@ class RoomQuotesDataSource @Inject constructor(private val quotesDao: QuotesDao)
         quotesDao.updateQuote(quote = mQuote)
     }
 
+    override suspend fun setAsShown(quote: Quote) {
+        val mQuote = quote.copy(is_quote_shown = true).toRoomQuote()
+        quotesDao.updateQuote(quote = mQuote)
+    }
+
     override suspend fun removeFromFavorite(quote: Quote) {
         val mQuote = quote.copy(is_favorite = false).toRoomQuote()
         quotesDao.updateQuote(quote = mQuote)

@@ -9,6 +9,7 @@ interface LocalDataSource {
     fun getQuotes(): Flow<List<RoomQuote>>
     fun getNonShownQuotes(): RoomQuote
     suspend fun addQuoteToFavorites(quote: Quote)
+    suspend fun setAsShown(quote: Quote)
     suspend fun removeFromFavorite(quote: Quote)
     fun getFavoritesQuotes(): Flow<List<RoomQuote>>
 }

@@ -35,6 +35,10 @@ class QuotesRepository @Inject constructor(private val remoteQuotesDataSource: R
         )
     }
 
+    suspend fun setAsShown(quote: Quote) {
+        localDataSource.setAsShown(quote)
+    }
+
     suspend fun addToFavorite(quote: Quote) {
         localDataSource.addQuoteToFavorites(quote)
     }
