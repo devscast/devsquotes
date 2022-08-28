@@ -13,7 +13,8 @@ data class RoomQuote(
     val author: String,
     val role: String,
     val created_at: Date,
-    val is_favorite: Boolean
+    val is_favorite: Boolean,
+    val is_quote_shown: Boolean
 ) {
     fun toQuote(): Quote {
         return Quote(
@@ -21,7 +22,8 @@ data class RoomQuote(
             fr = fr,
             author = author,
             role = role,
-            is_favorite = is_favorite
+            is_favorite = is_favorite,
+            is_quote_shown = is_quote_shown
         )
     }
 }
