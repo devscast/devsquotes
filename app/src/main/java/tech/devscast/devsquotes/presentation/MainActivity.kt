@@ -21,7 +21,7 @@ import tech.devscast.devsquotes.app.navigation.MainNavGraph
 import tech.devscast.devsquotes.presentation.theme.DevsquotesTheme
 import tech.devscast.devsquotes.service.workmanager.NotificationWorkManager
 import tech.devscast.devsquotes.util.NotificationConstant
-import java.util.*
+import java.util.Calendar
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -44,7 +44,6 @@ class MainActivity : ComponentActivity() {
             editor.apply {
                 putBoolean("is-first-open", false)
             }.apply()
-
         }
 
         setContent {

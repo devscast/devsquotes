@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import tech.devscast.devsquotes.data.model.Quote
 import tech.devscast.devsquotes.data.repository.QuotesRepository
 import javax.inject.Inject
