@@ -69,15 +69,15 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun setUpWorkManager() =
-        PeriodicWorkRequestBuilder<NotificationWorkManager>(15, TimeUnit.MINUTES)
-//            .setInitialDelay(dailyWorker(), TimeUnit.MICROSECONDS)
+        PeriodicWorkRequestBuilder<NotificationWorkManager>(1, TimeUnit.DAYS)
+            .setInitialDelay(getInitialDelay(), TimeUnit.MICROSECONDS)
             .addTag(NotificationConstant.TAG_OUTPUT)
             .build()
 
-    private fun dailyWorker(): Long {
+    private fun getInitialDelay(): Long {
         val dueDate = Calendar.getInstance()
 
-        dueDate.set(Calendar.HOUR_OF_DAY, 22)
+        dueDate.set(Calendar.HOUR_OF_DAY, 9)
         dueDate.set(Calendar.MINUTE, 0)
         dueDate.set(Calendar.SECOND, 0)
 
