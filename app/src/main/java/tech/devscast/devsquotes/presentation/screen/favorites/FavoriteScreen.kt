@@ -20,7 +20,7 @@ import androidx.navigation.NavController
 import tech.devscast.devsquotes.data.model.Quote
 import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteState
 import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteViewModel
-import tech.devscast.devsquotes.presentation.screen.home.component.SwipeableCard
+import tech.devscast.devsquotes.presentation.sharedcomponents.SwipeableCard
 import tech.devscast.devsquotes.presentation.screen.home.component.TopPageBar
 
 @Composable

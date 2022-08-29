@@ -2,6 +2,7 @@ package tech.devscast.devsquotes.presentation.screen
 
 import android.app.Activity
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -29,9 +30,10 @@ import androidx.navigation.NavHostController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import tech.devscast.devsquotes.R
 import tech.devscast.devsquotes.app.navigation.Screen
+import tech.devscast.devsquotes.data.model.Quote
 import tech.devscast.devsquotes.presentation.screen.home.busness.HomeState
 import tech.devscast.devsquotes.presentation.screen.home.busness.HomeViewModel
-import tech.devscast.devsquotes.presentation.screen.home.component.SwipeableCard
+import tech.devscast.devsquotes.presentation.sharedcomponents.SwipeableCard
 import tech.devscast.devsquotes.presentation.screen.home.component.TopPageBar
 import tech.devscast.devsquotes.presentation.theme.FavoriteBotBlack
 import tech.devscast.devsquotes.presentation.theme.White
@@ -40,7 +42,7 @@ import tech.devscast.devsquotes.presentation.theme.White
 @Composable
 fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
 
-    val quotes by viewModel.data.collectAsState()
+    val quotesState by viewModel.quotesState.collectAsState()
     val context = LocalContext.current
 
     BackHandler(enabled = true) {
@@ -78,18 +80,45 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = hilt
             }
         }
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp),
-            contentAlignment = Alignment.TopCenter
-        ) {
-            if (quotes is HomeState.Success) {
-                SwipeableCard(
-                    (quotes as HomeState.Success).quotes,
-                    onAddQuoteToFavorite = { viewModel.addToFavorite(it) }
-                )
+        Crossfade(targetState = quotesState) { state ->
+
+            when(state) {
+                is HomeState.Success -> {
+                    HomeContent(
+                        quotes = state.quotes,
+                        onAddQuoteToFavorite = { viewModel.addToFavorite(it) })
+                }
+
+                is HomeState.Loading -> {
+                    // TODO : Create a loader
+                }
+
+                is HomeState.Empty -> {
+                    // TODO : create a generic empty screen
+                }
+
+                is HomeState.Error -> {
+                    // TODO : create a error empty screen
+                }
             }
+
         }
+    }
+}
+
+@Composable
+private fun HomeContent(quotes: List<Quote>, onAddQuoteToFavorite: (Quote) -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+        contentAlignment = Alignment.TopCenter
+    ) {
+
+        SwipeableCard(
+            quotes = quotes,
+            onAddQuoteToFavorite = onAddQuoteToFavorite
+        )
+
     }
 }
