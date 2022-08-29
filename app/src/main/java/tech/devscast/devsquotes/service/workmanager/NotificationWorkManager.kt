@@ -27,6 +27,7 @@ class NotificationWorkManager @AssistedInject constructor(
     override suspend fun doWork(): Result {
         val quote = repository.getNonShownQuotes()
         showNotification(quote)
+        repository.setAsShown(quote)
         return Result.success()
     }
 
