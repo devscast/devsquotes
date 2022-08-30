@@ -25,7 +25,7 @@ fun FavoriteItem(quote: Quote, onClick: (Quote) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
             .wrapContentHeight(), shape = RoundedCornerShape(16.dp),
         onClick = {
             onClick(quote)

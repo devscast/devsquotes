@@ -17,7 +17,7 @@ private val LightColorPalette = lightColors(
     primary = Purple500,
     primaryVariant = Purple700,
     secondary = Teal200,
-    background = Color(0xFFF0F0F0),
+    background = Color(0xFFFAFAFA),
 
     /* Other default colors to override
 
