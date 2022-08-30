@@ -4,14 +4,19 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import tech.devscast.devsquotes.presentation.screen.HomeScreen
+import tech.devscast.devsquotes.presentation.screen.home.HomeScreen
 import tech.devscast.devsquotes.presentation.screen.favorites.FavoriteScreen
+import tech.devscast.devsquotes.presentation.screen.showquote.ShowQuoteScreen
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun MainNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
+
+    val uri = "https://quotes.devscast.tech"
+
+    NavHost(navController = navController, startDestination = "${Screen.Quote.route}/{id}") {
         composable(route = Screen.Home.route) {
             HomeScreen(navController)
         }
@@ -19,6 +24,13 @@ fun MainNavGraph(navController: NavHostController) {
         }
         composable(route = Screen.Favorite.route) {
             FavoriteScreen(navController)
+        }
+
+        composable(
+            route = "${Screen.Quote.route}/{id}",
+            deepLinks = listOf(navDeepLink { uriPattern = "$uri/{id}" }),
+        ) { backStackEntry ->
+            ShowQuoteScreen(navController = navController,quoteId = backStackEntry.arguments?.getString("id") ?: "")
         }
     }
 }

@@ -16,8 +16,12 @@ class QuotesRepository @Inject constructor(private val remoteQuotesDataSource: R
         return localDataSource.getQuotes().map { it.toListQuote() }
     }
 
-    fun getNonShownQuotes(): Quote {
-        return localDataSource.getNonShownQuotes().toQuote()
+    fun getQuoteById(id: String) : Quote {
+        return localDataSource.getQuoteById(id).toQuote()
+    }
+
+    fun getNonShownQuote(): Quote {
+        return localDataSource.getNonShownQuote().toQuote()
     }
 
     suspend fun refresh() {

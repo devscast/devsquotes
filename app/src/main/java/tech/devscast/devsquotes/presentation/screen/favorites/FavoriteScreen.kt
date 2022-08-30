@@ -21,7 +21,7 @@ import tech.devscast.devsquotes.data.model.Quote
 import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteState
 import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteViewModel
 import tech.devscast.devsquotes.presentation.sharedcomponents.SwipeableCard
-import tech.devscast.devsquotes.presentation.screen.home.component.TopPageBar
+import tech.devscast.devsquotes.presentation.sharedcomponents.TopPageBar
 
 @Composable
 fun FavoriteScreen(navController: NavController, viewModel: FavoriteViewModel = hiltViewModel()) {

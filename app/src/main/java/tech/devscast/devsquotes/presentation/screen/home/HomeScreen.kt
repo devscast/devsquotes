@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.presentation.screen
+package tech.devscast.devsquotes.presentation.screen.home
 
 import android.app.Activity
 import androidx.activity.compose.BackHandler
@@ -34,7 +34,7 @@ import tech.devscast.devsquotes.data.model.Quote
 import tech.devscast.devsquotes.presentation.screen.home.busness.HomeState
 import tech.devscast.devsquotes.presentation.screen.home.busness.HomeViewModel
 import tech.devscast.devsquotes.presentation.sharedcomponents.SwipeableCard
-import tech.devscast.devsquotes.presentation.screen.home.component.TopPageBar
+import tech.devscast.devsquotes.presentation.sharedcomponents.TopPageBar
 import tech.devscast.devsquotes.presentation.theme.FavoriteBotBlack
 import tech.devscast.devsquotes.presentation.theme.White
 

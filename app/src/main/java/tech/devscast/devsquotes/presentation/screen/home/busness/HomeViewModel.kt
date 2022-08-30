@@ -36,7 +36,6 @@ class HomeViewModel @Inject constructor(private val quotesRepository: QuotesRepo
     )
 
     init {
-
         viewModelScope.launch(Dispatchers.IO) {
             quotesRepository.refresh()
         }

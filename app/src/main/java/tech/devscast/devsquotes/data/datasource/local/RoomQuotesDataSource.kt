@@ -19,7 +19,7 @@ class RoomQuotesDataSource @Inject constructor(private val quotesDao: QuotesDao)
         return quotesDao.getAll()
     }
 
-    override fun getNonShownQuotes(): RoomQuote {
+    override fun getNonShownQuote(): RoomQuote {
         return quotesDao.getNonShown()
     }
 
@@ -40,5 +40,9 @@ class RoomQuotesDataSource @Inject constructor(private val quotesDao: QuotesDao)
 
     override fun getFavoritesQuotes(): Flow<List<RoomQuote>> {
         return quotesDao.getAllFavorites()
+    }
+
+    override fun getQuoteById(id: String): RoomQuote {
+        return quotesDao.getQuoteById(id = id)
     }
 }

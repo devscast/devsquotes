@@ -11,6 +11,7 @@ import tech.devscast.devsquotes.data.model.RoomQuote
 
 @Dao
 interface QuotesDao {
+
     @Query("SELECT * FROM quotes ORDER BY created_at")
     fun getAll(): Flow<List<RoomQuote>>
 
@@ -19,7 +20,7 @@ interface QuotesDao {
     fun getNonShown(): RoomQuote
 
     @Query("SELECT * FROM quotes WHERE id = :id LIMIT 1")
-    fun getQuotesById(id: String): RoomQuote
+    fun getQuoteById(id: String): RoomQuote
 
     @Query("SELECT * FROM quotes WHERE is_favorite = 1")
     fun getAllFavorites(): Flow<List<RoomQuote>>

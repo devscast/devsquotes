@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.presentation.screen.home.component
+package tech.devscast.devsquotes.presentation.sharedcomponents
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
