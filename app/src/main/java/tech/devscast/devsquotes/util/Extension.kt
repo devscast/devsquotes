@@ -6,4 +6,4 @@ fun String.removeDoubleQuotes(): String {
     return removeSurrounding("\"")
 }
 
-fun Quote.getShareableText() : String = "${this.fr.removeDoubleQuotes()}\n${this.author.removeDoubleQuotes()}\nEnvoyé depuis Devsquotes - https://quotes.devscast.tech"
+fun Quote.getShareableText() : String = "${this.fr.removeDoubleQuotes()}\n-${this.author.removeDoubleQuotes()}\n\nEnvoyé depuis Devsquotes - https://quotes.devscast.tech"
