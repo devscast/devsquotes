@@ -145,7 +145,7 @@ private fun ShowQuoteContent(quote: Quote, onAddToFavorite: (Quote) -> Unit) {
                 onClick = { onAddToFavorite(quote) },
                 modifier = Modifier
                     .size(20.dp)
-                    .border(width = 1.dp, color = Color.Green, shape = CircleShape),
+                    .border(width = 1.dp, color = if (quote.is_favorite) Color.Red else Color.Green, shape = CircleShape),
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Favorite,
@@ -177,7 +177,7 @@ private fun ShowQuoteContent(quote: Quote, onAddToFavorite: (Quote) -> Unit) {
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Share,
-                    tint = if (quote.is_favorite) Color.Red else Color.Green,
+                    tint = Color.Green,
                     contentDescription = null,
                     modifier = Modifier.padding(0.dp)
                 )

@@ -23,7 +23,7 @@ import tech.devscast.devsquotes.presentation.theme.FavoriteBotBlack
 fun TopPageBar(title: String, subtitle: String, modifier: Modifier = Modifier, actionMenu: @Composable () -> Unit = {}) {
     TopAppBar(
         modifier = modifier.height(70.dp),
-        backgroundColor = MaterialTheme.colors.surface,
+        backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp
     ) {
         Row(
