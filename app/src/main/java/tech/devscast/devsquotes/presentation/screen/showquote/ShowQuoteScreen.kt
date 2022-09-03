@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
@@ -87,7 +88,7 @@ fun ShowQuoteScreen(
             Crossfade(targetState = quoteState) { state ->
                 when (state) {
                     is ShowQuoteState.Loading -> {
-                        // TODO
+                        CircularProgressIndicator()
                     }
 
                     is ShowQuoteState.Success -> {
@@ -145,7 +146,11 @@ private fun ShowQuoteContent(quote: Quote, onAddToFavorite: (Quote) -> Unit) {
                 onClick = { onAddToFavorite(quote) },
                 modifier = Modifier
                     .size(20.dp)
-                    .border(width = 1.dp, color = if (quote.is_favorite) Color.Red else Color.Green, shape = CircleShape),
+                    .border(
+                        width = 1.dp,
+                        color = if (quote.is_favorite) Color.Red else Color.Green,
+                        shape = CircleShape
+                    ),
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Favorite,

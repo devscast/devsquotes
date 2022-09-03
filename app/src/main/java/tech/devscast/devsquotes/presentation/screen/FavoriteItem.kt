@@ -21,12 +21,10 @@ import tech.devscast.devsquotes.util.removeDoubleQuotes
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun FavoriteItem(quote: Quote, onClick: (Quote) -> Unit) {
+fun FavoriteItem(quote: Quote, onClick: (Quote) -> Unit, modifier: Modifier = Modifier) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .wrapContentHeight(), shape = RoundedCornerShape(16.dp),
+        modifier = modifier,
+        shape = RoundedCornerShape(16.dp),
         onClick = {
             onClick(quote)
         }

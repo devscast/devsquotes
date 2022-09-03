@@ -13,7 +13,8 @@ import tech.devscast.devsquotes.data.repository.QuotesRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class ShowQuoteViewModel @Inject constructor(private val quotesRepository: QuotesRepository) : ViewModel() {
+class ShowQuoteViewModel @Inject constructor(private val quotesRepository: QuotesRepository) :
+    ViewModel() {
 
     private val _quote = MutableStateFlow<ShowQuoteState>(ShowQuoteState.Initial)
     val quote: StateFlow<ShowQuoteState>
@@ -42,6 +43,7 @@ class ShowQuoteViewModel @Inject constructor(private val quotesRepository: Quote
                 _quote.emit(ShowQuoteState.Error(e.message.toString()))
             }
         }
+
     }
 
     fun addToFavorite(quote: Quote) {
@@ -49,7 +51,6 @@ class ShowQuoteViewModel @Inject constructor(private val quotesRepository: Quote
             quotesRepository.addToFavorite(quote)
         }
     }
-
 
 
 }
