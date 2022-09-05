@@ -2,6 +2,7 @@ package tech.devscast.devsquotes.presentation.screen.showquote
 
 import android.content.Intent
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -43,6 +44,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import tech.devscast.devsquotes.app.navigation.Screen
 import tech.devscast.devsquotes.data.model.Quote
+import tech.devscast.devsquotes.presentation.MainActivity
 import tech.devscast.devsquotes.presentation.screen.showquote.business.ShowQuoteState
 import tech.devscast.devsquotes.presentation.screen.showquote.business.ShowQuoteViewModel
 import tech.devscast.devsquotes.presentation.sharedcomponents.TopPageBar
@@ -59,6 +61,10 @@ fun ShowQuoteScreen(
     val context = LocalContext.current
 
     val quoteState by viewModel.quote.collectAsState()
+
+    BackHandler(enabled = true) {
+        (context as MainActivity).finish()
+    }
 
     LaunchedEffect(viewModel) {
         viewModel.getQuoteById(quoteId)

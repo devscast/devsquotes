@@ -8,14 +8,18 @@ import androidx.navigation.navDeepLink
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import tech.devscast.devsquotes.presentation.screen.favorites.FavoriteScreen
 import tech.devscast.devsquotes.presentation.screen.showquote.ShowQuoteScreen
+import tech.devscast.devsquotes.presentation.screen.splash.SplashScreen
 
 @Composable
 fun MainNavGraph(navController: NavHostController) {
 
     val uri = "https://quotes.devscast.tech"
 
-    NavHost(navController = navController, startDestination = "${Screen.Quote.route}/{id}") {
-        composable(route = Screen.Setting.route) {
+    NavHost(navController = navController, startDestination = Screen.Splash.route) {
+        composable(route = Screen.Splash.route) {
+            SplashScreen {
+                navController.navigate("${Screen.Quote.route}/{id}")
+            }
         }
         composable(route = Screen.Favorite.route) {
             FavoriteScreen(navController)
