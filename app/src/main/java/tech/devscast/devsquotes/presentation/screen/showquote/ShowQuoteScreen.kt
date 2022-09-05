@@ -69,10 +69,6 @@ fun ShowQuoteScreen(
     val context = LocalContext.current
     val scaffoldState: ScaffoldState = rememberScaffoldState()
 
-    BackHandler(enabled = true) {
-        (context as MainActivity).finish()
-    }
-
     LaunchedEffect(viewModel) {
         viewModel.getQuoteById(quoteId)
     }

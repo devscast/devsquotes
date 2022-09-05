@@ -19,7 +19,11 @@ fun MainNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.Splash.route) {
         composable(route = Screen.Splash.route) {
             SplashScreen {
-                navController.navigate(Screen.Quote.route)
+                navController.navigate(Screen.Quote.route) {
+                    popUpTo(Screen.Splash.route) {
+                        inclusive = true
+                    }
+                }
             }
         }
 
