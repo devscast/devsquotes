@@ -16,6 +16,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.install.model.UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
 import dagger.hilt.android.AndroidEntryPoint
 import tech.devscast.devsquotes.app.navigation.MainNavGraph
 import tech.devscast.devsquotes.presentation.theme.DevsquotesTheme
@@ -28,12 +32,20 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    private val appUpdateManager by lazy {
+        AppUpdateManagerFactory.create(baseContext)
+    }
+
+    object REQUESTCODES {
+        const val IN_APP_UPDATE = 1
+    }
+
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        checkForAppUpdates()
         createNotificationChannel()
         if (sharedPreferences.getBoolean("is-first-open", true)) {
 
@@ -59,6 +71,15 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        appUpdateManager.appUpdateInfo.addOnSuccessListener {
+            if (it.updateAvailability() == DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                appUpdateManager.startUpdateFlowForResult(it, AppUpdateType.FLEXIBLE, this, REQUESTCODES.IN_APP_UPDATE)
+            }
+        }
+    }
+
     private fun startWork() {
         WorkManager.getInstance(applicationContext)
             .enqueueUniquePeriodicWork(
@@ -69,19 +90,19 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun setUpWorkManager() =
-        PeriodicWorkRequestBuilder<NotificationWorkManager>(1, TimeUnit.DAYS)
-            .setInitialDelay(getInitialDelay(), TimeUnit.MICROSECONDS)
+        PeriodicWorkRequestBuilder<NotificationWorkManager>(15, TimeUnit.MINUTES)
+            .setInitialDelay(getInitialDelay(), TimeUnit.MILLISECONDS)
             .addTag(NotificationConstant.TAG_OUTPUT)
             .build()
 
     private fun getInitialDelay(): Long {
-        val dueDate = Calendar.getInstance()
-
-        dueDate.set(Calendar.HOUR_OF_DAY, 9)
-        dueDate.set(Calendar.MINUTE, 0)
-        dueDate.set(Calendar.SECOND, 0)
-
-        return dueDate.timeInMillis - System.currentTimeMillis()
+        val dueDate = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 9)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+        }
+        return dueDate.timeInMillis
     }
 
     private fun createNotificationChannel() {
@@ -102,6 +123,24 @@ class MainActivity : ComponentActivity() {
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun checkForAppUpdates() {
+
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
+            ) {
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    AppUpdateType.FLEXIBLE,
+                    this,
+                    REQUESTCODES.IN_APP_UPDATE
+                )
+            }
         }
     }
 }

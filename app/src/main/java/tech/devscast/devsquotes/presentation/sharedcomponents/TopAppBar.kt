@@ -1,4 +1,4 @@
-package tech.devscast.devsquotes.presentation.screen.home.component
+package tech.devscast.devsquotes.presentation.sharedcomponents
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +23,7 @@ import tech.devscast.devsquotes.presentation.theme.FavoriteBotBlack
 fun TopPageBar(title: String, subtitle: String, modifier: Modifier = Modifier, actionMenu: @Composable () -> Unit = {}) {
     TopAppBar(
         modifier = modifier.height(70.dp),
-        backgroundColor = MaterialTheme.colors.surface,
+        backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp
     ) {
         Row(

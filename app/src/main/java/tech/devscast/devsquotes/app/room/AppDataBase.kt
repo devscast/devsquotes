@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import tech.devscast.devsquotes.data.dao.QuotesDao
 import tech.devscast.devsquotes.data.model.RoomQuote
 
-@Database(entities = [RoomQuote::class], version = 1)
+@Database(entities = [RoomQuote::class], version = 1, exportSchema = false)
 @TypeConverters(RoomConverters::class)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun quotesDao(): QuotesDao
