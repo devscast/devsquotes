@@ -37,7 +37,7 @@ class NotificationWorkManager @AssistedInject constructor(
     private fun showNotification(quote: Quote) {
         val intent = Intent(
             Intent.ACTION_VIEW,
-            "https://quotes.devscast.tech/${quote.generatedId}".toUri(),
+            "https://quotes.devscast.tech?id=${quote.generatedId}".toUri(),
             applicationContext,
             MainActivity::class.java
         ).apply {

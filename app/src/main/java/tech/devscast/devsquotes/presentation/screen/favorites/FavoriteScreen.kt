@@ -59,7 +59,7 @@ fun FavoriteScreen(navController: NavController, viewModel: FavoriteViewModel = 
                 is FavoriteState.Success -> {
                     FavoriteScreenContent(
                         quotes = favoriteState.quotes,
-                        onFavoriteClick = { navController.navigate("${Screen.Quote.route}/${it.generatedId}") },
+                        onFavoriteClick = { navController.navigate("${Screen.Quote.route}?id=${it.generatedId}") },
                         removeFavorite = { viewModel.removeFromFavorites(it) }
                     )
                 }
