@@ -16,6 +16,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.install.model.UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
 import dagger.hilt.android.AndroidEntryPoint
 import tech.devscast.devsquotes.app.navigation.MainNavGraph
 import tech.devscast.devsquotes.presentation.theme.DevsquotesTheme
@@ -28,12 +32,21 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    private val appUpdateManager by lazy {
+        AppUpdateManagerFactory.create(baseContext)
+    }
+
+    object REQUESTCODES {
+        const val IN_APP_UPDATE = 1
+    }
+
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        checkForAppUpdates()
         createNotificationChannel()
         if (sharedPreferences.getBoolean("is-first-open", true)) {
 
@@ -55,6 +68,15 @@ class MainActivity : ComponentActivity() {
                 ) {
                     MainNavGraph(navController)
                 }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appUpdateManager.appUpdateInfo.addOnSuccessListener {
+            if (it.updateAvailability() == DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                appUpdateManager.startUpdateFlowForResult(it, AppUpdateType.FLEXIBLE, this, REQUESTCODES.IN_APP_UPDATE)
             }
         }
     }
@@ -102,6 +124,24 @@ class MainActivity : ComponentActivity() {
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+
+    private fun checkForAppUpdates() {
+
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
+            ) {
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    AppUpdateType.FLEXIBLE,
+                    this,
+                    REQUESTCODES.IN_APP_UPDATE)
+            }
         }
     }
 }
