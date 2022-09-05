@@ -1,6 +1,7 @@
 package tech.devscast.devsquotes.presentation.screen.showquote
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -55,6 +56,7 @@ fun ShowQuoteScreen(
     quoteId: String = "",
     viewModel: ShowQuoteViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
 
     val quoteState by viewModel.quote.collectAsState()
 
@@ -86,6 +88,7 @@ fun ShowQuoteScreen(
         },
         content = {
             Crossfade(targetState = quoteState) { state ->
+                Toast.makeText(context,state.toString(),Toast.LENGTH_SHORT).show()
                 when (state) {
                     is ShowQuoteState.Loading -> {
                         CircularProgressIndicator()
@@ -102,10 +105,10 @@ fun ShowQuoteScreen(
                     is ShowQuoteState.Error -> {
                         // TODO
                     }
-
-                    else -> {
-                        // TODO
+                    ShowQuoteState.Empty -> {
+                        CircularProgressIndicator()
                     }
+                    ShowQuoteState.Initial -> {}
                 }
             }
         }

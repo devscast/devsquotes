@@ -69,8 +69,8 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun setUpWorkManager() =
-        PeriodicWorkRequestBuilder<NotificationWorkManager>(1, TimeUnit.DAYS)
-            .setInitialDelay(getInitialDelay(), TimeUnit.MICROSECONDS)
+        PeriodicWorkRequestBuilder<NotificationWorkManager>(15, TimeUnit.MINUTES)
+            .setInitialDelay(15, TimeUnit.MINUTES)
             .addTag(NotificationConstant.TAG_OUTPUT)
             .build()
 

@@ -1,6 +1,9 @@
 package tech.devscast.devsquotes.data.repository
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import tech.devscast.devsquotes.data.datasource.local.LocalDataSource
 import tech.devscast.devsquotes.data.datasource.remote.RemoteQuotesDataSource
@@ -10,13 +13,23 @@ import tech.devscast.devsquotes.util.toListQuote
 import timber.log.Timber
 import javax.inject.Inject
 
-class QuotesRepository @Inject constructor(private val remoteQuotesDataSource: RemoteQuotesDataSource, private val localDataSource: LocalDataSource) {
+class QuotesRepository @Inject constructor(
+    private val remoteQuotesDataSource: RemoteQuotesDataSource,
+    private val localDataSource: LocalDataSource
+) {
 
-    fun getQuotes(): Flow<List<Quote>> {
-        return localDataSource.getQuotes().map { it.toListQuote() }
+    fun getQuotes() = flow {
+        refresh()
+        localDataSource.getQuotes().map { it.toListQuote() }.collect { quotes ->
+            emit(quotes)
+        }
+    }.catch {
+        localDataSource.getQuotes().map { it.toListQuote() }.collect { quotes ->
+            emit(quotes)
+        }
     }
 
-    fun getQuoteById(id: String) : Quote {
+    fun getQuoteById(id: String): Quote {
         return localDataSource.getQuoteById(id).toQuote()
     }
 

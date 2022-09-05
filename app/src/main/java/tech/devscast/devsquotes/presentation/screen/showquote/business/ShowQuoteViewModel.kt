@@ -21,12 +21,6 @@ class ShowQuoteViewModel @Inject constructor(private val quotesRepository: Quote
         get() = _quote
 
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            quotesRepository.refresh()
-        }
-    }
-
     fun getQuoteById(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _quote.emit(ShowQuoteState.Loading)
