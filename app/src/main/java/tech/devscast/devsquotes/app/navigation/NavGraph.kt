@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import tech.devscast.devsquotes.presentation.screen.favorites.FavoriteScreen
 import tech.devscast.devsquotes.presentation.screen.showquote.ShowQuoteScreen
 import tech.devscast.devsquotes.presentation.screen.splash.SplashScreen

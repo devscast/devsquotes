@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -42,5 +41,4 @@ fun EmptyComponent(text: String = "Pas de contenu") {
         )
         Text(text = text, style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.SemiBold, fontSize = 20.sp))
     }
-
 }

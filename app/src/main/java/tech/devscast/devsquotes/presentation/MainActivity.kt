@@ -43,7 +43,6 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkForAppUpdates()
@@ -127,20 +126,20 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
     private fun checkForAppUpdates() {
 
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
 
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
             ) {
                 appUpdateManager.startUpdateFlowForResult(
                     appUpdateInfo,
                     AppUpdateType.FLEXIBLE,
                     this,
-                    REQUESTCODES.IN_APP_UPDATE)
+                    REQUESTCODES.IN_APP_UPDATE
+                )
             }
         }
     }

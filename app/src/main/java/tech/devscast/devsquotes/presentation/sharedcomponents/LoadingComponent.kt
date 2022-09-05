@@ -24,7 +24,7 @@ fun LoadingComponent(modifier: Modifier = Modifier) {
         LottieAnimation(
             modifier = Modifier.align(Alignment.Center),
             composition = composition,
-            progress = { progress } ,
+            progress = { progress },
         )
     }
 }

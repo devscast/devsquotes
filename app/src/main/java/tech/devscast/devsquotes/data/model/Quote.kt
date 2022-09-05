@@ -24,7 +24,7 @@ data class Quote(
     }
 }
 
-val Quote.generatedId : String
+val Quote.generatedId: String
     get() = en.filterNot { it.isWhitespace() }.filterNot { it == '"' }.take(20)
 
-fun Quote.getUrl() : String = "https://quotes.devscast.tech/${generatedId}"
+fun Quote.getUrl(): String = "https://quotes.devscast.tech/$generatedId"

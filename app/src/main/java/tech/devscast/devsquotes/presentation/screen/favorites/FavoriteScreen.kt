@@ -11,12 +11,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
-import androidx.compose.material.SnackbarResult
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,7 +33,6 @@ import tech.devscast.devsquotes.data.model.Quote
 import tech.devscast.devsquotes.data.model.generatedId
 import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteState
 import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteViewModel
-import tech.devscast.devsquotes.presentation.screen.showquote.business.ShowQuoteState
 import tech.devscast.devsquotes.presentation.sharedcomponents.EmptyComponent
 import tech.devscast.devsquotes.presentation.sharedcomponents.LoadingComponent
 import tech.devscast.devsquotes.presentation.sharedcomponents.TopPageBar
@@ -93,17 +90,19 @@ private fun FavoriteScreenContent(
     ) {
 
         items(quotes) { quote ->
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)) {
-
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            ) {
 
                 DraggableCard(
                     quote = quote,
                     onClick = { onFavoriteClick(it) },
                     isRevealed = revealedItem == quote,
                     onExpand = { revealedItem = it },
-                    onCollapse = { revealedItem = null })
+                    onCollapse = { revealedItem = null }
+                )
 
                 Icon(
                     imageVector = Icons.Rounded.Delete,
@@ -115,7 +114,6 @@ private fun FavoriteScreenContent(
                         .padding(end = 8.dp)
                         .clickable { removeFavorite(quote) }
                 )
-
             }
         }
     }

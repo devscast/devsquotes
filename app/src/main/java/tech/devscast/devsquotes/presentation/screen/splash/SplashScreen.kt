@@ -22,7 +22,7 @@ import kotlinx.coroutines.delay
 import tech.devscast.devsquotes.R
 
 @Composable
-fun SplashScreen(next : () -> Unit) {
+fun SplashScreen(next: () -> Unit) {
 
     val scale = remember {
         Animatable(0f)
@@ -35,7 +35,8 @@ fun SplashScreen(next : () -> Unit) {
                 durationMillis = 900,
                 easing = {
                     OvershootInterpolator(5f).getInterpolation(it)
-                })
+                }
+            )
         )
         delay(500L)
         next()

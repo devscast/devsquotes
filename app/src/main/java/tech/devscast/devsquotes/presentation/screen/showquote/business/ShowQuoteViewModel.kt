@@ -20,7 +20,6 @@ class ShowQuoteViewModel @Inject constructor(private val quotesRepository: Quote
     val quote: StateFlow<ShowQuoteState>
         get() = _quote
 
-
     fun getQuoteById(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _quote.emit(ShowQuoteState.Loading)
@@ -37,7 +36,6 @@ class ShowQuoteViewModel @Inject constructor(private val quotesRepository: Quote
                 _quote.emit(ShowQuoteState.Error(e.message.toString()))
             }
         }
-
     }
 
     fun addToFavorite(quote: Quote) {
@@ -45,6 +43,4 @@ class ShowQuoteViewModel @Inject constructor(private val quotesRepository: Quote
             quotesRepository.addToFavorite(quote)
         }
     }
-
-
 }

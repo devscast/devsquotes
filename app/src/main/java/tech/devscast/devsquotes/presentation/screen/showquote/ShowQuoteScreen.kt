@@ -1,8 +1,6 @@
 package tech.devscast.devsquotes.presentation.screen.showquote
 
 import android.content.Intent
-import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -35,7 +33,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,7 +44,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import tech.devscast.devsquotes.app.navigation.Screen
 import tech.devscast.devsquotes.data.model.Quote
-import tech.devscast.devsquotes.presentation.MainActivity
 import tech.devscast.devsquotes.presentation.screen.showquote.business.ShowQuoteState
 import tech.devscast.devsquotes.presentation.screen.showquote.business.ShowQuoteViewModel
 import tech.devscast.devsquotes.presentation.sharedcomponents.EmptyComponent
@@ -56,7 +52,6 @@ import tech.devscast.devsquotes.presentation.sharedcomponents.TopPageBar
 import tech.devscast.devsquotes.util.getShareableText
 import tech.devscast.devsquotes.util.removeDoubleQuotes
 import timber.log.Timber
-
 
 @Composable
 fun ShowQuoteScreen(
@@ -130,7 +125,6 @@ fun ShowQuoteScreen(
                     is ShowQuoteState.Error -> {
                         Timber.e(state.message)
                         EmptyComponent()
-
                     }
                     ShowQuoteState.Empty -> {
                         EmptyComponent(text = "Pas de contenu pour l'instant")
@@ -202,7 +196,6 @@ private fun ShowQuoteContent(quote: Quote, onAddToFavorite: (Quote) -> Unit) {
                         putExtra(Intent.EXTRA_TITLE, "Partager la citation")
                         type = "text/plain"
                     }
-
 
                     context.startActivity(sendIntent)
                 },

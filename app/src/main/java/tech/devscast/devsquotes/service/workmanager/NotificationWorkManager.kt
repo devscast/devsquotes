@@ -46,7 +46,7 @@ class NotificationWorkManager @AssistedInject constructor(
 
         val pendingIntent: PendingIntent = TaskStackBuilder.create(applicationContext).run {
             addNextIntentWithParentStack(intent)
-            getPendingIntent(0,PendingIntent.FLAG_IMMUTABLE)
+            getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE)
         }
 
         val builder = NotificationCompat.Builder(
