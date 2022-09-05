@@ -1,6 +1,5 @@
 package tech.devscast.devsquotes.presentation.screen.favorites
 
-import android.widget.Toast
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -10,11 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
-import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.SnackbarResult
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,15 +35,21 @@ import tech.devscast.devsquotes.data.model.Quote
 import tech.devscast.devsquotes.data.model.generatedId
 import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteState
 import tech.devscast.devsquotes.presentation.screen.favorites.business.FavoriteViewModel
+import tech.devscast.devsquotes.presentation.screen.showquote.business.ShowQuoteState
+import tech.devscast.devsquotes.presentation.sharedcomponents.EmptyComponent
+import tech.devscast.devsquotes.presentation.sharedcomponents.LoadingComponent
 import tech.devscast.devsquotes.presentation.sharedcomponents.TopPageBar
 
 @Composable
 fun FavoriteScreen(navController: NavController, viewModel: FavoriteViewModel = hiltViewModel()) {
 
     val quotesState by viewModel.quotesState.collectAsState()
+
     val context = LocalContext.current
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
 
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
             TopPageBar(title = "Favoris", "Vos citations favorites")
         },
@@ -56,12 +64,14 @@ fun FavoriteScreen(navController: NavController, viewModel: FavoriteViewModel = 
                     )
                 }
                 is FavoriteState.Loading -> {
-                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                    LoadingComponent(modifier = Modifier.fillMaxSize())
                 }
                 is FavoriteState.Empty -> {
-                    Toast.makeText(context, "Vide", Toast.LENGTH_SHORT).show()
+                    EmptyComponent(text = "Aucune citation favorite")
                 }
-                else -> {}
+                is FavoriteState.Error -> {
+                    EmptyComponent()
+                }
             }
         }
     }

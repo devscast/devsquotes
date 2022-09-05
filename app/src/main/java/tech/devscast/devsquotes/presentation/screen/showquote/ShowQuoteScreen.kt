@@ -19,20 +19,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.SnackbarDuration
+import androidx.compose.material.SnackbarResult
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,9 +50,12 @@ import tech.devscast.devsquotes.data.model.Quote
 import tech.devscast.devsquotes.presentation.MainActivity
 import tech.devscast.devsquotes.presentation.screen.showquote.business.ShowQuoteState
 import tech.devscast.devsquotes.presentation.screen.showquote.business.ShowQuoteViewModel
+import tech.devscast.devsquotes.presentation.sharedcomponents.EmptyComponent
+import tech.devscast.devsquotes.presentation.sharedcomponents.LoadingComponent
 import tech.devscast.devsquotes.presentation.sharedcomponents.TopPageBar
 import tech.devscast.devsquotes.util.getShareableText
 import tech.devscast.devsquotes.util.removeDoubleQuotes
+import timber.log.Timber
 
 
 @Composable
@@ -58,9 +64,10 @@ fun ShowQuoteScreen(
     quoteId: String = "",
     viewModel: ShowQuoteViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
-
     val quoteState by viewModel.quote.collectAsState()
+
+    val context = LocalContext.current
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
 
     BackHandler(enabled = true) {
         (context as MainActivity).finish()
@@ -70,7 +77,23 @@ fun ShowQuoteScreen(
         viewModel.getQuoteById(quoteId)
     }
 
+    LaunchedEffect(quoteState) {
+        if (quoteState is ShowQuoteState.Error) {
+            val snackbarResult = scaffoldState.snackbarHostState.showSnackbar(
+                message = "Une erreur s'est produite",
+                actionLabel = "Réesayer",
+                duration = SnackbarDuration.Indefinite
+            )
+
+            when (snackbarResult) {
+                SnackbarResult.Dismissed -> {}
+                SnackbarResult.ActionPerformed -> viewModel.getQuoteById(quoteId)
+            }
+        }
+    }
+
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
             TopPageBar(
                 title = "Devsquotes",
@@ -94,10 +117,9 @@ fun ShowQuoteScreen(
         },
         content = {
             Crossfade(targetState = quoteState) { state ->
-                Toast.makeText(context,state.toString(),Toast.LENGTH_SHORT).show()
                 when (state) {
                     is ShowQuoteState.Loading -> {
-                        CircularProgressIndicator()
+                        LoadingComponent(modifier = Modifier.fillMaxSize())
                     }
 
                     is ShowQuoteState.Success -> {
@@ -105,14 +127,17 @@ fun ShowQuoteScreen(
                             quote = state.quote,
                             onAddToFavorite = {
                                 viewModel.addToFavorite(it)
-                            })
+                            }
+                        )
                     }
 
                     is ShowQuoteState.Error -> {
-                        // TODO
+                        Timber.e(state.message)
+                        EmptyComponent()
+
                     }
                     ShowQuoteState.Empty -> {
-                        CircularProgressIndicator()
+                        EmptyComponent(text = "Pas de contenu pour l'instant")
                     }
                     ShowQuoteState.Initial -> {}
                 }
